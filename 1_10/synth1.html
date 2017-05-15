@@ -4,10 +4,10 @@
     </head>
     <body>
         <script>
-            let AudioCtx = window.AudioContext || window.webkitAudioContext;
-            let context = new AudioCtx();
+            var AudioCtx = window.AudioContext || window.webkitAudioContext;
+            var context = new AudioCtx();
 
-            let osc = context.createOscillator();
+            var osc = context.createOscillator();
             osc.connect(context.destination);
 
             osc.start();
