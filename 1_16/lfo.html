@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+    </head>
+    <body style="height: 100%">
+        <div style="background-color: black; height: 100%"
+            onmousemove="lfo.frequency.value = event.clientX">
+        </div>
+        <script>
+            var AudioCtx = window.AudioContext || window.webkitAudioContext;
+            
+            var context = new AudioCtx();
+            
+            var osc = context.createOscillator();
+            // lfo stands for Low Frequency Oscillator
+            var lfo = context.createOscillator();
+            var lfo_amp = context.createGain();
+            
+            lfo_amp.gain.value = 200;
+            osc.frequency.value = 500;
+            lfo.frequency.value = 10.5; 
+            
+            lfo.connect(lfo_amp);
+            lfo_amp.connect(osc.frequency);
+            osc.connect(context.destination);
+            
+            osc.start();
+            lfo.start();
+        </script>
+    </body>
+
+</html>
