@@ -14,9 +14,11 @@
                 var osc = context.createOscillator();
                 osc.frequency.value = Math.random() * 500;
                 
-                // wiring many oscillators to the output might end up with a value > 1,
-                // (since each oscillator outputs a value between -1 and 1,)
-                // which'll lead to distortions, therefore we need a gain-node
+                // An oscillator outputs values in the range of -1 to +1.
+                // Wiring more than one oscillator to the destination, we'll
+                // add the output range, so 3 oscillators means a range of -3 to +3, 
+                // which overdrives the sound card. Therefor we need amplifiers to
+                // reduce the output of each amp.
                 var amp = context.createGain();
                 
                 osc.connect(amp);
