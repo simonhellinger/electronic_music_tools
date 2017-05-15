@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html style="height:100%">
+    <head>
+
+    </head>
+    <body style="height:100%">
+       <div 
+            style="background-color:black; height: 100%;"
+            tabindex="1"
+            onkeydown="setNote(event.key)"
+            onmousemove="changeFilter(event.clientX, event.clientY)">
+        </div>
+        
+        <script>
+            var AudioCtx = window.AudioContext || window.webkitAudioContext;
+            
+            var context = new AudioCtx();
+            var osc = context.createOscillator();
+            var filter = context.createBiquadFilter(); // low pass filter
+            
+            filter.gain.value = 0.5;
+            
+            // the original
+            //osc.connect(context.destination);
+            osc.connect(filter);
+            filter.connect(context.destination);
+            
+            osc.frequency.value = 600;
+            filter.frequency.value = 100; // open up the filter by making the value higher, close it down by making it lower
+            
+            // filtering sine waves makes no sense, they're either there or
+            // they're not, so we change to the richest harmonic waveform,
+            // so we can filter it.
+            osc.type="sawtooth";
+            
+            
+            osc.start();
+            
+            
+            function changeFilter(mx, my) {
+                filter.frequency.value = mx * 10;
+                filter.Q.value = my / 10; // resonance
+            }
+            
+            function setNote(key) {
+                if (key === "y") {
+                    // play a C
+                    osc.frequency.value = 261;
+                } else if (key === "x") {
+                    // play a D
+                    osc.frequency.value = 293.66;
+                } else if (key === "c") {
+                    osc.frequency.value = 329.63;
+                } else if (key === "v") {
+                    osc.frequency.value = 349.23;
+                }
+            }
+        </script>
+    </body>
+</html>
