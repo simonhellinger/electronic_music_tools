@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+        <body>
+            <div style="background-color:black; height: 1500px;" 
+                onmousemove="osc.frequency.value = event.clientY;">
+        </div>
+        
+        <script>
+            var AudioCtx = window.AudioContext || window.webkitAudioContext;
+            
+            var context = new AudioCtx();
+            var osc = context.createOscillator();
+            
+            osc.connect(context.destination);
+            
+            osc.frequency.value = 600;
+            osc.start();
+        </script>
+    </body>
+</html>
