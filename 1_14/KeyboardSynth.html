@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div 
+            style="background-color:black; height: 1500px;"
+            tabindex="1"
+            onkeydown="setNote(event.key)">
+        </div>
+    
+        <script>
+            var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        
+            var context = new AudioCtx();
+            var osc = context.createOscillator();
+        
+            osc.connect(context.destination);
+        
+            osc.frequency.value = 600;
+            osc.start();
+        
+        
+            function setNote(key) {
+                if (key === "y") {
+                    // play a C
+                    osc.frequency.value = 261;
+                } else if (key === "x") {
+                    // play a D
+                    osc.frequency.value = 293.66;
+                } else if (key === "c") {
+                    osc.frequency.value = 329.63;
+                } else if (key === "v") {
+                    osc.frequency.value = 349.23;
+                }
+            }
+        </script>
+    </body>
+</html>
